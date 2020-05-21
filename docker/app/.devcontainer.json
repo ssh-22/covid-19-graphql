@@ -1,0 +1,17 @@
+{
+  "name": "app",
+  "dockerComposeFile": ["../../docker-compose.yml"],
+  "appPort": [8000],
+  "service": "app",
+  "extensions": ["ms-python.python"],
+  "settings": {
+    "terminal.integrated.shell.linux": "/bin/bash",
+    "editor.formatOnSave": true,
+    "python.pythonPath": "/usr/local/bin/python",
+    "python.linting.enabled": true,
+    "python.formatting.provider": "black",
+    "python.linting.mypyEnabled": true
+  },
+  "workspaceFolder": "./src/src",
+  "shutdownAction": "stopCompose"
+}

@@ -1,0 +1,54 @@
+version: "3.7"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/app/Dockerfile
+    restart: always
+    ports:
+      - "8000:8000"
+    volumes:
+      - "./backend:/backend"
+    working_dir: /backend
+    command: >
+      sh -c "python manage.py migrate &&
+            python manage.py runserver 0.0.0.0:8000"
+    env_file:
+      - .env
+    depends_on:
+      - db
+    tty: true
+    stdin_open: true
+
+  db:
+    image: postgres:12.2-alpine
+    restart: always
+    env_file:
+      - .env
+    environment:
+      LANG: ja_jp.utf8
+      LANGUAGE: ja_jp.utf8
+      LC_ALL: ja_jp.utf8
+    command: ["postgres", "-c", "log_statement=none"]
+    ports:
+      - "5432:5432"
+    volumes:
+      - "./db:/var/lib/postgresql/data"
+
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/frontend/Dockerfile
+    ports:
+      - "3000:3000"
+    working_dir: /frontend/covid-19
+    command: >
+      sh -c "yarn install &&
+            yarn dev"
+    volumes:
+      - "./frontend:/frontend"
+    depends_on:
+      - app
+    tty: true
+    stdin_open: true

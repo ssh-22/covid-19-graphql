@@ -1,0 +1,55 @@
+version: "3.7"
+
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    restart: always
+    volumes:
+      - ./docker/web/nginx/conf:/etc/nginx/conf.d
+      - ./docker/web/nginx/uwsgi_params:/etc/nginx/uwsgi_params
+      - ./src/staticfiles:/staticfiles
+      - ./frontend/covid-19/build/:/usr/share/nginx/html
+    depends_on:
+      - app
+    tty: true
+    stdin_open: true
+
+  app:
+    build:
+      context: .
+      dockerfile: docker/app/Dockerfile
+    restart: always
+    ports:
+      - "8000:8000"
+    volumes:
+      - "./src:/src"
+    working_dir: /src
+    command: >
+      sh -c "python manage.py migrate &&
+            python manage.py collectstatic --noinput &&
+            uwsgi --socket :8001 --module config.wsgi"
+    env_file:
+      - .env
+    expose:
+      - "8001"
+    depends_on:
+      - db
+    tty: true
+    stdin_open: true
+
+  db:
+    image: postgres:12.2-alpine
+    restart: always
+    env_file:
+      - .env
+    environment:
+      LANG: ja_jp.utf8
+      LANGUAGE: ja_jp.utf8
+      LC_ALL: ja_jp.utf8
+    command: ["postgres", "-c", "log_statement=none"]
+    ports:
+      - "5432:5432"
+    volumes:
+      - "./db:/var/lib/postgresql/data"

@@ -1,0 +1,21 @@
+{
+    "name": "frontend",
+    "dockerComposeFile": [
+        "../../docker-compose.yml"
+    ],
+    "appPort": [
+        3000
+    ],
+    "service": "frontend",
+    "extensions": [
+        "ms-vscode.vscode-typescript-tslint-plugin",
+        "dsznajder.es7-react-js-snippets",
+        "esbenp.prettier-vscode"
+    ],
+    "settings": {
+        "terminal.integrated.shell.linux": "/bin/ash",
+        "editor.formatOnSave": true
+    },
+    "workspaceFolder": "./frontend",
+    "shutdownAction": "stopCompose"
+}
