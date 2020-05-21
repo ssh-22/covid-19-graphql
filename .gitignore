@@ -106,3 +106,5 @@ sw.*
 
 # Vim swap files
 *.swp
+
+Makefile
