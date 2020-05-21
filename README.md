@@ -3,8 +3,8 @@ covid-19-graphql
 
 ## Description
 
-- Backend: Django, DjangoRestFrameWork
-- Frontend: React(TypeScript)
+- Backend: Django, Graphene-Django
+- Frontend: NuxtJs(TypeScript)
 - Database: PostgreSQL
 
 ## Requirement
