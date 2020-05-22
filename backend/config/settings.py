@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+    'graphene_django',
+    "covid19",
 ]
 
 MIDDLEWARE = [
@@ -130,3 +132,7 @@ CORS_ORIGIN_WHITELIST = [
     "http://localhost",
     "http://127.0.0.1"
 ]
+
+GRAPHENE = {
+    'SCHEMA': 'schema.schema'
+}
