@@ -16,6 +16,7 @@ node_modules
 # python
 __pycache__/
 .mypy_cache/
+venv/
 
 # django
 staticfiles/
@@ -107,4 +108,8 @@ sw.*
 # Vim swap files
 *.swp
 
+# Makefile
 Makefile
+
+# vscode
+.vscode
