@@ -42,7 +42,7 @@ class CreateCountdown(graphene.Mutation):
 
 
 class DeleteCountdown(graphene.Mutation):
-    ok = graphene.Boolean()
+    is_delete = graphene.Boolean()
 
     class Arguments:
         countdown_data = CountdownDeleteInput(required=True)
@@ -50,7 +50,7 @@ class DeleteCountdown(graphene.Mutation):
     def mutate(root, info, countdown_data):
         countdown = Countdown.objects.get(id=countdown_data.id)
         countdown.delete()
-        return DeleteCountdown(ok=True)
+        return DeleteCountdown(is_delete=True)
 
 
 class Mutation(graphene.ObjectType):
