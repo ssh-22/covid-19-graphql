@@ -22,7 +22,7 @@ class CountdownDeleteInput(graphene.InputObjectType):
 class Query(graphene.ObjectType):
     all_countdowns = graphene.List(CountdownType)
 
-    def resolve_all_countdowns(self, info, **kwargs):
+    def resolve_all_countdowns(self, info):
         return Countdown.objects.order_by("target_date").all()
 
 
