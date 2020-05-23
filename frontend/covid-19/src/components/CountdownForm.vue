@@ -50,8 +50,8 @@ export default Vue.extend({
   data: () => ({
     target: "緊急事態宣言解除",
     targetRules: [
-      (v) => !!v || "目標は必須です",
-      (v) => v.length <= 10 || "目標は10文字以下でないといけません",
+      (v: string | null) => !!v || "目標は必須です",
+      (v: string) => v.length <= 10 || "目標は10文字以下でないといけません",
     ],
     targetDate: new Date().toISOString().substr(0, 10),
     isOpen: false,
