@@ -29,7 +29,6 @@
               color="light-blue accent-2"
               locale="ja"
             ></v-date-picker>
-            <v-icon></v-icon>
           </v-menu>
         </v-col>
       </v-row>
@@ -41,18 +40,18 @@
 import Vue from "vue";
 export default Vue.extend({
   name: "CountdownForm",
-  data: (vm: any) => ({
+  data: () => ({
     target: "緊急事態宣言解除",
     targetDate: new Date().toISOString().substr(0, 10),
     isOpen: false
   }),
   computed: {
-    computedDateFormatted(): void {
+    computedDateFormatted(): string | null {
       return this.formatDate(this.targetDate);
     }
   },
   methods: {
-    formatDate(date: string): any {
+    formatDate(date: string): string | null {
       if (!date) return null;
 
       const [year, month, day] = date.split("-");
