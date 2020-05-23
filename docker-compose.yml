@@ -45,7 +45,7 @@ services:
     working_dir: /frontend/covid-19
     command: >
       sh -c "yarn install &&
-            yarn dev"
+            yarn serve"
     volumes:
       - "./frontend:/frontend"
     depends_on:
