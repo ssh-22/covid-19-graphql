@@ -2,10 +2,14 @@
   <v-form>
     <v-container>
       <v-row>
-        <v-col cols="12" sm="6" md="4">
-          <v-text-field v-model="target" label="何を"></v-text-field>
+        <v-col cols="12" sm="5" md="4">
+          <v-text-field
+            v-model="target"
+            label="何を"
+            :rules="targetRules"
+          ></v-text-field>
         </v-col>
-        <v-col cols="12" sm="6" md="4">
+        <v-col cols="12" sm="5" md="4">
           <v-menu
             v-model="isOpen"
             :close-on-content-click="false"
@@ -31,6 +35,9 @@
             ></v-date-picker>
           </v-menu>
         </v-col>
+        <v-col cols="12" sm="2" md="4">
+          <v-btn class="ma-2" outlined color="primary">送信</v-btn>
+        </v-col>
       </v-row>
     </v-container>
   </v-form>
@@ -42,13 +49,17 @@ export default Vue.extend({
   name: "CountdownForm",
   data: () => ({
     target: "緊急事態宣言解除",
+    targetRules: [
+      (v) => !!v || "目標は必須です",
+      (v) => v.length <= 10 || "目標は10文字以下でないといけません",
+    ],
     targetDate: new Date().toISOString().substr(0, 10),
-    isOpen: false
+    isOpen: false,
   }),
   computed: {
     computedDateFormatted(): string | null {
       return this.formatDate(this.targetDate);
-    }
+    },
   },
   methods: {
     formatDate(date: string): string | null {
@@ -56,8 +67,8 @@ export default Vue.extend({
 
       const [year, month, day] = date.split("-");
       return `${year}/${month}/${day}`;
-    }
-  }
+    },
+  },
 });
 </script>
 
