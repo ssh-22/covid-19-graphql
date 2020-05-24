@@ -12,11 +12,11 @@ import CountdownList from "./components/CountdownList.vue";
 export default Vue.extend({
   name: "App",
   components: {
-    CountdownList,
+    CountdownList
   },
 
   data: () => ({
     //
-  }),
+  })
 });
 </script>

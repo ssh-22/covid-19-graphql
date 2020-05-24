@@ -51,15 +51,15 @@ export default Vue.extend({
     target: "緊急事態宣言解除",
     targetRules: [
       (v: string | null) => !!v || "目標は必須です",
-      (v: string) => v.length <= 10 || "目標は10文字以下でないといけません",
+      (v: string) => v.length <= 10 || "目標は10文字以下でないといけません"
     ],
     targetDate: new Date().toISOString().substr(0, 10),
-    isOpen: false,
+    isOpen: false
   }),
   computed: {
     computedDateFormatted(): string | null {
       return this.formatDate(this.targetDate);
-    },
+    }
   },
   methods: {
     formatDate(date: string): string | null {
@@ -67,8 +67,8 @@ export default Vue.extend({
 
       const [year, month, day] = date.split("-");
       return `${year}/${month}/${day}`;
-    },
-  },
+    }
+  }
 });
 </script>
 
