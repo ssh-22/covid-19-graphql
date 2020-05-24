@@ -1,22 +1,22 @@
 <template>
   <v-app>
     <v-content>
-      <CountdownForm />
+      <CountdownList />
     </v-content>
   </v-app>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import CountdownForm from "./components/CountdownForm.vue";
+import CountdownList from "./components/CountdownList.vue";
 export default Vue.extend({
   name: "App",
   components: {
-    CountdownForm
+    CountdownList,
   },
 
   data: () => ({
     //
-  })
+  }),
 });
 </script>
