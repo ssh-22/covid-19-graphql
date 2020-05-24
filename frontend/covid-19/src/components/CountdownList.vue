@@ -14,8 +14,7 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import { defineComponent, reactive, watchEffect } from "@vue/composition-api";
+import { defineComponent } from "@vue/composition-api";
 import gql from "graphql-tag";
 import { useQuery, useResult } from "@vue/apollo-composable";
 
