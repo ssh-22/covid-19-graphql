@@ -1,61 +1,52 @@
 <template>
-  <CountdownForm />
+  <div>
+    <CountdownForm />
+    <div v-if="loading">Loading...</div>
+    <div v-else-if="error">Error: {{ error.message }}</div>
+    <div v-if="countdowns">
+      <v-list-item v-for="countdown of countdowns" :key="countdown.id">
+        <v-list-item-content>
+          {{ countdown.target }} まで あと {{ countdown.targetDate }}
+        </v-list-item-content>
+      </v-list-item>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
+import { defineComponent, reactive, watchEffect } from "@vue/composition-api";
+import gql from "graphql-tag";
+import { useQuery, useResult } from "@vue/apollo-composable";
+
 import CountdownForm from "./CountdownForm.vue";
 import { CountdownInterface } from "../interfaces";
-import { defineComponent, reactive, watchEffect } from "@vue/composition-api";
+
 export default defineComponent({
   name: "CountdownList",
   components: {
     CountdownForm,
   },
   setup() {
-    const countdowns = reactive<CountdownInterface[]>([]);
+    const { result, loading, error } = useQuery(gql`
+      query {
+        allCountdowns {
+          id
+          target
+          targetDate
+        }
+      }
+    `);
 
-    const addCountdown = (countdown: CountdownInterface) => {
-      const target = countdown.target;
-      const targetDate = countdown.targetDate;
-      const newCountdown = { target, targetDate };
-    };
-
-    const deleteCountdown = (id: number) => {
-      console.log(id);
-    };
-
-    const fetchData = async () => {
-      console.log("debug");
-      //   const res = await axios.get(CountdownGetAPI.develop);
-      //   const newCountdowns: CountdownInterface[] = res.data;
-    };
-
-    watchEffect(() => {
-      fetchData();
-    });
+    const countdowns = useResult(result);
 
     return {
       countdowns,
+      loading,
+      error,
     };
   },
 });
-// export default Vue.extend({
-//   name: "CountdownList",
-//   components: {
-//     CountdownForm,
-//   },
-//   methods: {
-//     addCountdown(countdown: CountdownInterface) {
-//       const target = countdown.target;
-//       const targetDate = countdown.targetDate;
-//       const newCountdown = { target, targetDate };
-//     },
-//     deleteCountdown(id: number) {
-//       console.log(id);
-//     },
-//   },
-// });
 </script>
 
 <style></style>

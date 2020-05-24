@@ -1,7 +1,0 @@
-query {
-  allCountdowns {
-    id
-    target
-    targetDate
-  }
-}
